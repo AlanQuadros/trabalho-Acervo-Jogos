@@ -15,6 +15,17 @@ import javax.swing.event.InternalFrameListener;
  */
 public class TelaInicial extends javax.swing.JFrame implements InternalFrameListener{
     boolean flagCadGenero = false;
+    boolean flagCadJogo = false;
+    boolean flagCadPlataforma = false;
+    boolean flagCadProdutora = false;
+    boolean flagAltGenero = false;
+    boolean flagAltJogo = false;
+    boolean flagAltPlataforma = false;
+    boolean flagAltProdutora = false;
+    boolean flagDelGenero = false;
+    boolean flagDelJogo = false;
+    boolean flagDelPlataforma = false;
+    boolean flagDelProdutora = false;
     /**
      * Creates new form TelaInicial
      */
@@ -48,7 +59,11 @@ public class TelaInicial extends javax.swing.JFrame implements InternalFrameList
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
-        sair = new javax.swing.JMenu();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem13 = new javax.swing.JMenuItem();
+        jMenuItem14 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -105,13 +120,21 @@ public class TelaInicial extends javax.swing.JFrame implements InternalFrameList
 
         jMenuBar1.add(jMenu3);
 
-        sair.setText("Sair");
-        sair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sairActionPerformed(evt);
-            }
-        });
-        jMenuBar1.add(sair);
+        jMenu1.setText("Pesquisar");
+
+        jMenuItem1.setText("Gênero");
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem13.setText("Jogo");
+        jMenu1.add(jMenuItem13);
+
+        jMenuItem14.setText("Plataforma");
+        jMenu1.add(jMenuItem14);
+
+        jMenu4.setText("Produtora");
+        jMenu1.add(jMenu4);
+
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -142,12 +165,6 @@ public class TelaInicial extends javax.swing.JFrame implements InternalFrameList
     private void jmiGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiGeneroActionPerformed
         abrirCadGenero();
     }//GEN-LAST:event_jmiGeneroActionPerformed
-
-    private void sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairActionPerformed
-        // TODO add your handling code here:
-        System.exit(0);
-        
-    }//GEN-LAST:event_sairActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,12 +203,17 @@ public class TelaInicial extends javax.swing.JFrame implements InternalFrameList
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jAreaTrabalho;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -202,7 +224,6 @@ public class TelaInicial extends javax.swing.JFrame implements InternalFrameList
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenu jmCadastro;
     private javax.swing.JMenuItem jmiGenero;
-    private javax.swing.JMenu sair;
     // End of variables declaration//GEN-END:variables
 
     @Override
