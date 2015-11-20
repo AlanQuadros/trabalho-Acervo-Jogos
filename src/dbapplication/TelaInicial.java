@@ -6,13 +6,15 @@
 package dbapplication;
 
 import javax.swing.JMenuItem;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.InternalFrameListener;
 
 /**
  *
  * @author 15202607
  */
-public class TelaInicial extends javax.swing.JFrame {
-
+public class TelaInicial extends javax.swing.JFrame implements InternalFrameListener{
+    boolean flagCadGenero = false;
     /**
      * Creates new form TelaInicial
      */
@@ -29,9 +31,10 @@ public class TelaInicial extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jAreaTrabalho = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jmCadastro = new javax.swing.JMenu();
+        jmiGenero = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -49,26 +52,26 @@ public class TelaInicial extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jMenu1.setText("Cadastros");
+        jmCadastro.setText("Cadastros");
 
-        jMenuItem1.setText("Gênero");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jmiGenero.setText("Gênero");
+        jmiGenero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jmiGeneroActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jmCadastro.add(jmiGenero);
 
         jMenuItem2.setText("Jogo");
-        jMenu1.add(jMenuItem2);
+        jmCadastro.add(jMenuItem2);
 
         jMenuItem3.setText("Plataforma");
-        jMenu1.add(jMenuItem3);
+        jmCadastro.add(jMenuItem3);
 
         jMenuItem4.setText("Produtora");
-        jMenu1.add(jMenuItem4);
+        jmCadastro.add(jMenuItem4);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(jmCadastro);
 
         jMenu2.setText("Alterações");
 
@@ -116,19 +119,29 @@ public class TelaInicial extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 592, Short.MAX_VALUE)
+            .addComponent(jAreaTrabalho, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 350, Short.MAX_VALUE)
+            .addComponent(jAreaTrabalho, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    private void abrirCadGenero() {
+        if (!flagCadGenero) {
+            GenerosGUI gcad = new GenerosGUI();
+            jAreaTrabalho.add(gcad);
+            gcad.setVisible(true);
+            flagCadGenero = true;
+            gcad.addInternalFrameListener(this);
+        }
+    }
+    
+    private void jmiGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiGeneroActionPerformed
+        abrirCadGenero();
+    }//GEN-LAST:event_jmiGeneroActionPerformed
 
     private void sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairActionPerformed
         // TODO add your handling code here:
@@ -172,11 +185,10 @@ public class TelaInicial extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
+    private javax.swing.JDesktopPane jAreaTrabalho;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
@@ -188,6 +200,45 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JMenu jmCadastro;
+    private javax.swing.JMenuItem jmiGenero;
     private javax.swing.JMenu sair;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void internalFrameOpened(InternalFrameEvent e) {
+        
+    }
+
+    @Override
+    public void internalFrameClosing(InternalFrameEvent e) {
+        
+    }
+
+    @Override
+    public void internalFrameClosed(InternalFrameEvent e) {
+        if (e.getInternalFrame() instanceof GenerosGUI) {
+            flagCadGenero = false;
+        } 
+    }
+
+    @Override
+    public void internalFrameIconified(InternalFrameEvent e) {
+        
+    }
+
+    @Override
+    public void internalFrameDeiconified(InternalFrameEvent e) {
+        
+    }
+
+    @Override
+    public void internalFrameActivated(InternalFrameEvent e) {
+        
+    }
+
+    @Override
+    public void internalFrameDeactivated(InternalFrameEvent e) {
+        
+    }
 }
