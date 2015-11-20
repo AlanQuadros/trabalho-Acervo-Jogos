@@ -46,24 +46,25 @@ public class TelaInicial extends javax.swing.JFrame implements InternalFrameList
         jMenuBar1 = new javax.swing.JMenuBar();
         jmCadastro = new javax.swing.JMenu();
         jmiGenero = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        jmiJogo = new javax.swing.JMenuItem();
+        jmiPlataforma = new javax.swing.JMenuItem();
+        jmiProdutora = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
+        jmiAlteraGenero = new javax.swing.JMenuItem();
+        jmiAlteraJogo = new javax.swing.JMenuItem();
+        jmiAlteraPlataforma = new javax.swing.JMenuItem();
+        jmiAlteraProdutora = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem11 = new javax.swing.JMenuItem();
-        jMenuItem12 = new javax.swing.JMenuItem();
+        jmiDeletaGenero = new javax.swing.JMenuItem();
+        jmiDeletaJogo = new javax.swing.JMenuItem();
+        jmiDeletaPlataforma = new javax.swing.JMenuItem();
+        jmiDeletaProdutora = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem13 = new javax.swing.JMenuItem();
-        jMenuItem14 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
+        jmiBuscaGenero = new javax.swing.JMenuItem();
+        jmiBuscaJogo = new javax.swing.JMenuItem();
+        jmiBuscaPlataforma = new javax.swing.JMenuItem();
+        jmiBuscaProdutora = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,64 +78,67 @@ public class TelaInicial extends javax.swing.JFrame implements InternalFrameList
         });
         jmCadastro.add(jmiGenero);
 
-        jMenuItem2.setText("Jogo");
-        jmCadastro.add(jMenuItem2);
+        jmiJogo.setText("Jogo");
+        jmCadastro.add(jmiJogo);
 
-        jMenuItem3.setText("Plataforma");
-        jmCadastro.add(jMenuItem3);
+        jmiPlataforma.setText("Plataforma");
+        jmCadastro.add(jmiPlataforma);
 
-        jMenuItem4.setText("Produtora");
-        jmCadastro.add(jMenuItem4);
+        jmiProdutora.setText("Produtora");
+        jmCadastro.add(jmiProdutora);
 
         jMenuBar1.add(jmCadastro);
 
         jMenu2.setText("Alterações");
 
-        jMenuItem5.setText("Gênero");
-        jMenu2.add(jMenuItem5);
+        jmiAlteraGenero.setText("Gênero");
+        jMenu2.add(jmiAlteraGenero);
 
-        jMenuItem6.setText("Jogo");
-        jMenu2.add(jMenuItem6);
+        jmiAlteraJogo.setText("Jogo");
+        jMenu2.add(jmiAlteraJogo);
 
-        jMenuItem7.setText("Plataforma");
-        jMenu2.add(jMenuItem7);
+        jmiAlteraPlataforma.setText("Plataforma");
+        jMenu2.add(jmiAlteraPlataforma);
 
-        jMenuItem8.setText("Produtora");
-        jMenu2.add(jMenuItem8);
+        jmiAlteraProdutora.setText("Produtora");
+        jMenu2.add(jmiAlteraProdutora);
 
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Deleções");
 
-        jMenuItem9.setText("Gênero");
-        jMenu3.add(jMenuItem9);
+        jmiDeletaGenero.setText("Gênero");
+        jMenu3.add(jmiDeletaGenero);
 
-        jMenuItem10.setText("Jogo");
-        jMenu3.add(jMenuItem10);
+        jmiDeletaJogo.setText("Jogo");
+        jMenu3.add(jmiDeletaJogo);
 
-        jMenuItem11.setText("Plataforma");
-        jMenu3.add(jMenuItem11);
+        jmiDeletaPlataforma.setText("Plataforma");
+        jMenu3.add(jmiDeletaPlataforma);
 
-        jMenuItem12.setText("Produtora");
-        jMenu3.add(jMenuItem12);
+        jmiDeletaProdutora.setText("Produtora");
+        jMenu3.add(jmiDeletaProdutora);
 
         jMenuBar1.add(jMenu3);
 
         jMenu1.setText("Pesquisar");
 
-        jMenuItem1.setText("Gênero");
-        jMenu1.add(jMenuItem1);
+        jmiBuscaGenero.setText("Gênero");
+        jMenu1.add(jmiBuscaGenero);
 
-        jMenuItem13.setText("Jogo");
-        jMenu1.add(jMenuItem13);
+        jmiBuscaJogo.setText("Jogo");
+        jMenu1.add(jmiBuscaJogo);
 
-        jMenuItem14.setText("Plataforma");
-        jMenu1.add(jMenuItem14);
+        jmiBuscaPlataforma.setText("Plataforma");
+        jMenu1.add(jmiBuscaPlataforma);
 
-        jMenu4.setText("Produtora");
-        jMenu1.add(jMenu4);
+        jmiBuscaProdutora.setText("Produtora");
+        jMenu1.add(jmiBuscaProdutora);
 
         jMenuBar1.add(jMenu1);
+
+        jMenu5.setText("Sair");
+        jMenuBar1.add(jMenu5);
 
         setJMenuBar(jMenuBar1);
 
@@ -206,24 +210,25 @@ public class TelaInicial extends javax.swing.JFrame implements InternalFrameList
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem14;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenu jmCadastro;
+    private javax.swing.JMenuItem jmiAlteraGenero;
+    private javax.swing.JMenuItem jmiAlteraJogo;
+    private javax.swing.JMenuItem jmiAlteraPlataforma;
+    private javax.swing.JMenuItem jmiAlteraProdutora;
+    private javax.swing.JMenuItem jmiBuscaGenero;
+    private javax.swing.JMenuItem jmiBuscaJogo;
+    private javax.swing.JMenuItem jmiBuscaPlataforma;
+    private javax.swing.JMenuItem jmiBuscaProdutora;
+    private javax.swing.JMenuItem jmiDeletaGenero;
+    private javax.swing.JMenuItem jmiDeletaJogo;
+    private javax.swing.JMenuItem jmiDeletaPlataforma;
+    private javax.swing.JMenuItem jmiDeletaProdutora;
     private javax.swing.JMenuItem jmiGenero;
+    private javax.swing.JMenuItem jmiJogo;
+    private javax.swing.JMenuItem jmiPlataforma;
+    private javax.swing.JMenuItem jmiProdutora;
     // End of variables declaration//GEN-END:variables
 
     @Override
