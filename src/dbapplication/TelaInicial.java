@@ -5,6 +5,8 @@
  */
 package dbapplication;
 
+import javax.swing.JMenuItem;
+
 /**
  *
  * @author 15202607
@@ -43,7 +45,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
+        sair = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,27 +88,27 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jMenu3.setText("Deleções");
 
-        jMenuItem9.setText("jMenuItem9");
+        jMenuItem9.setText("Gênero");
         jMenu3.add(jMenuItem9);
 
-        jMenuItem10.setText("jMenuItem10");
+        jMenuItem10.setText("Jogo");
         jMenu3.add(jMenuItem10);
 
-        jMenuItem11.setText("jMenuItem11");
+        jMenuItem11.setText("Plataforma");
         jMenu3.add(jMenuItem11);
 
-        jMenuItem12.setText("jMenuItem12");
+        jMenuItem12.setText("Produtora");
         jMenu3.add(jMenuItem12);
 
         jMenuBar1.add(jMenu3);
 
-        jMenu4.setText("Sair");
-        jMenu4.addActionListener(new java.awt.event.ActionListener() {
+        sair.setText("Sair");
+        sair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu4ActionPerformed(evt);
+                sairActionPerformed(evt);
             }
         });
-        jMenuBar1.add(jMenu4);
+        jMenuBar1.add(sair);
 
         setJMenuBar(jMenuBar1);
 
@@ -128,10 +130,11 @@ public class TelaInicial extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
+    private void sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairActionPerformed
         // TODO add your handling code here:
+        System.exit(0);
         
-    }//GEN-LAST:event_jMenu4ActionPerformed
+    }//GEN-LAST:event_sairActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,7 +175,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
@@ -186,5 +188,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JMenu sair;
     // End of variables declaration//GEN-END:variables
 }
