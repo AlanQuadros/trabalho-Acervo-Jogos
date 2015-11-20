@@ -5,6 +5,8 @@
  */
 package dbapplication;
 
+import modelo.Pessoa;
+import persistencia.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
