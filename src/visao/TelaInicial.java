@@ -15,6 +15,9 @@ import javax.swing.event.InternalFrameListener;
  */
 public class TelaInicial extends javax.swing.JFrame implements InternalFrameListener{
     boolean flagCadGenero = false;
+    boolean flagAltGenero = false;
+    boolean flagCadJogo = false;
+    
     /**
      * Creates new form TelaInicial
      */
@@ -63,6 +66,11 @@ public class TelaInicial extends javax.swing.JFrame implements InternalFrameList
         jmCadastro.add(jmiGenero);
 
         jMenuItem2.setText("Jogo");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jmCadastro.add(jMenuItem2);
 
         jMenuItem3.setText("Plataforma");
@@ -76,6 +84,11 @@ public class TelaInicial extends javax.swing.JFrame implements InternalFrameList
         jMenu2.setText("Alterações");
 
         jMenuItem5.setText("Gênero");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem5);
 
         jMenuItem6.setText("Jogo");
@@ -139,6 +152,26 @@ public class TelaInicial extends javax.swing.JFrame implements InternalFrameList
         }
     }
     
+    private void abrirCadJogo() {
+        if (!flagCadJogo) {
+            CadJogosGUI jcad = new CadJogosGUI();
+            jAreaTrabalho.add(jcad);
+            jcad.setVisible(true);
+            flagCadJogo = true;
+            jcad.addInternalFrameListener(this);
+        }
+    }
+    
+    private void abrirAltGenero() {
+        if (!flagAltGenero) {
+            AltGenerosGUI gAlt = new AltGenerosGUI();
+            jAreaTrabalho.add(gAlt);
+            gAlt.setVisible(true);
+            flagAltGenero = true;
+            gAlt.addInternalFrameListener(this);
+        }
+    }
+    
     private void jmiGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiGeneroActionPerformed
         abrirCadGenero();
     }//GEN-LAST:event_jmiGeneroActionPerformed
@@ -148,6 +181,16 @@ public class TelaInicial extends javax.swing.JFrame implements InternalFrameList
         System.exit(0);
         
     }//GEN-LAST:event_sairActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        abrirCadJogo();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        abrirAltGenero();
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,6 +263,10 @@ public class TelaInicial extends javax.swing.JFrame implements InternalFrameList
         if (e.getInternalFrame() instanceof CadGenerosGUI) {
             flagCadGenero = false;
         } 
+        else if(e.getInternalFrame() instanceof CadJogosGUI)
+            flagCadJogo = false;
+        else if(e.getInternalFrame() instanceof AltGenerosGUI)
+            flagAltGenero = false;
     }
 
     @Override
