@@ -5,7 +5,18 @@
  */
 package visao;
 
+import dao.GeneroDAO;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import modelo.Genero;
 
 /**
  *
@@ -25,6 +36,7 @@ public class AltGenerosGUI extends javax.swing.JInternalFrame {
      */
     public AltGenerosGUI() {
         initComponents();
+        preencherTabela();
     }
 
     /**
@@ -40,10 +52,22 @@ public class AltGenerosGUI extends javax.swing.JInternalFrame {
         jbAlterar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtableGeneros = new javax.swing.JTable();
+        jlCodGenero = new javax.swing.JLabel();
+        jtCodGenero = new javax.swing.JTextField();
+        jlNomeGenero = new javax.swing.JLabel();
+        jtNomeGenero = new javax.swing.JTextField();
+
+        setClosable(true);
+        setTitle("Alteração de Gênero");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jbAlterar.setText("Alterar");
+        jbAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAlterarActionPerformed(evt);
+            }
+        });
 
         jtableGeneros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -57,29 +81,57 @@ public class AltGenerosGUI extends javax.swing.JInternalFrame {
             }
         ));
         jtableGeneros.getTableHeader().setReorderingAllowed(false);
+        jtableGeneros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jtableGenerosMouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtableGeneros);
         if (jtableGeneros.getColumnModel().getColumnCount() > 0) {
             jtableGeneros.getColumnModel().getColumn(0).setMaxWidth(100);
         }
+
+        jlCodGenero.setText("Código do Genêro");
+
+        jlNomeGenero.setText("Nome do Gênero");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(202, 202, 202)
-                        .addComponent(jbAlterar)))
+                        .addComponent(jlCodGenero)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jtCodGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jlNomeGenero)
+                        .addGap(18, 18, 18)
+                        .addComponent(jtNomeGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jbAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(233, 233, 233))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlCodGenero)
+                    .addComponent(jtCodGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlNomeGenero)
+                    .addComponent(jtNomeGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jbAlterar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -105,11 +157,61 @@ public class AltGenerosGUI extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAlterarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbAlterarActionPerformed
+
+    private void jtableGenerosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtableGenerosMouseReleased
+        alterarGenero();
+    }//GEN-LAST:event_jtableGenerosMouseReleased
+
+    private void preencherTabela(){
+        try {
+            List<Genero> generos = new ArrayList<Genero>();
+            GeneroDAO genDAO = new GeneroDAO();
+            generos = genDAO.getListaGenero();
+            
+            for (int i = 0; i < generos.size(); i++) {
+                dtm.addRow(new String[]{
+                    String.valueOf(generos.get(i).getIdGenero()),
+                    String.valueOf(generos.get(i).getNomeGenero())
+                });
+            }
+            jtableGeneros.setModel(dtm);
+            jtableGeneros.getColumnModel().getColumn(0).setMaxWidth(100);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                    "Erro\n" + e.getMessage(),
+                    "ERRO",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }
+    
+    public void alterarGenero(){
+        int linha = jtableGeneros.getSelectedRow();
+        
+        if (linha == -1) {
+            JOptionPane.showMessageDialog(this,
+                    "Selecione um cliente!",
+                    "ERRO",
+                    JOptionPane.ERROR_MESSAGE);
+        } else {
+            jtCodGenero.setText((String) jtableGeneros.getValueAt(linha, 0));
+            jtNomeGenero.setText((String) jtableGeneros.getValueAt(linha, 1));
+        }
+    }
+        
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbAlterar;
+    private javax.swing.JLabel jlCodGenero;
+    private javax.swing.JLabel jlNomeGenero;
+    private javax.swing.JTextField jtCodGenero;
+    private javax.swing.JTextField jtNomeGenero;
     private javax.swing.JTable jtableGeneros;
     // End of variables declaration//GEN-END:variables
 }
