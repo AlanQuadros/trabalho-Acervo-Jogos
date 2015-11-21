@@ -58,6 +58,9 @@ public class AltProdutorasGUI extends javax.swing.JInternalFrame {
           jbAlterar = new javax.swing.JButton();
           jbDeletar = new javax.swing.JButton();
 
+          setClosable(true);
+          setTitle("Alteração de Produtoras");
+
           jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
           jtableProdutoras.setModel(new javax.swing.table.DefaultTableModel(

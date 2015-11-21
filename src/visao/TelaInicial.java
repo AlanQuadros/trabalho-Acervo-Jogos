@@ -40,6 +40,7 @@ public class TelaInicial extends javax.swing.JFrame implements InternalFrameList
      // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
      private void initComponents() {
 
+          jMenuItem1 = new javax.swing.JMenuItem();
           jAreaTrabalho = new javax.swing.JDesktopPane();
           jMenuBar1 = new javax.swing.JMenuBar();
           jmCadastro = new javax.swing.JMenu();
@@ -52,7 +53,8 @@ public class TelaInicial extends javax.swing.JFrame implements InternalFrameList
           jMenuItem6 = new javax.swing.JMenuItem();
           jMenuItem7 = new javax.swing.JMenuItem();
           jMenuItem8 = new javax.swing.JMenuItem();
-          sair = new javax.swing.JMenu();
+
+          jMenuItem1.setText("jMenuItem1");
 
           setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -122,14 +124,6 @@ public class TelaInicial extends javax.swing.JFrame implements InternalFrameList
           jMenu2.add(jMenuItem8);
 
           jMenuBar1.add(jMenu2);
-
-          sair.setText("Sair");
-          sair.addActionListener(new java.awt.event.ActionListener() {
-               public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    sairActionPerformed(evt);
-               }
-          });
-          jMenuBar1.add(sair);
 
           setJMenuBar(jMenuBar1);
 
@@ -221,12 +215,6 @@ public class TelaInicial extends javax.swing.JFrame implements InternalFrameList
         abrirCadGenero();
     }//GEN-LAST:event_jmiGeneroActionPerformed
 
-    private void sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairActionPerformed
-        // TODO add your handling code here:
-        System.exit(0);
-        
-    }//GEN-LAST:event_sairActionPerformed
-
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
         abrirCadJogo();
@@ -292,6 +280,7 @@ public class TelaInicial extends javax.swing.JFrame implements InternalFrameList
      private javax.swing.JDesktopPane jAreaTrabalho;
      private javax.swing.JMenu jMenu2;
      private javax.swing.JMenuBar jMenuBar1;
+     private javax.swing.JMenuItem jMenuItem1;
      private javax.swing.JMenuItem jMenuItem2;
      private javax.swing.JMenuItem jMenuItem3;
      private javax.swing.JMenuItem jMenuItem4;
@@ -301,7 +290,6 @@ public class TelaInicial extends javax.swing.JFrame implements InternalFrameList
      private javax.swing.JMenuItem jMenuItem8;
      private javax.swing.JMenu jmCadastro;
      private javax.swing.JMenuItem jmiGenero;
-     private javax.swing.JMenu sair;
      // End of variables declaration//GEN-END:variables
 
     @Override
