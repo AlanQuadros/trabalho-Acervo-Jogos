@@ -158,7 +158,26 @@ public class AltGenerosGUI extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAlterarActionPerformed
-        // TODO add your handling code here:
+         try {
+              GeneroDAO genDAO = new GeneroDAO();
+              Genero gen = genDAO.getGeneros(Long.parseLong(jtCodGenero.getText()));
+              
+              gen.setIdGenero(Long.parseLong(jtCodGenero.getText()));
+              gen.setNomeGenero(jtNomeGenero.getText());
+              
+              String sId = (String) jtableGeneros.getValueAt(jtableGeneros.getSelectedRow(), 0);
+              
+              long id = Long.parseLong(sId);
+              
+              genDAO.updateGenero(gen, id);
+              JOptionPane.showMessageDialog(null, "Gênero atualizado com sucesso!");
+              
+         } catch (Exception e) {
+              JOptionPane.showMessageDialog(null, "Erro ao atualizar o gênero\n"+e.getMessage());
+              e.printStackTrace();
+         }
+         dtm.setNumRows(0);
+         preencherTabela();
     }//GEN-LAST:event_jbAlterarActionPerformed
 
     private void jtableGenerosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtableGenerosMouseReleased

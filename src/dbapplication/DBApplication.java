@@ -1,4 +1,4 @@
-﻿/*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -70,14 +70,14 @@ public class DBApplication {
 
 	// Para listar todo conjunto de Pessoas do Banco
   
-        List<Pessoa> pessoas = dao.getLista();
-
-        for (Pessoa pessoa : pessoas) {
-            System.out.println("Cpf: " + pessoa.getCpf());
-            System.out.println("Nome: " + pessoa.getNome());
-            System.out.println("Idade: " + pessoa.getIdade());
-            System.out.println("Endereço: " + pessoa.getEndereco());            
-        }          
+//        List<Pessoa> pessoas = dao.getLista();
+//
+//        for (Pessoa pessoa : pessoas) {
+//            System.out.println("Cpf: " + pessoa.getCpf());
+//            System.out.println("Nome: " + pessoa.getNome());
+//            System.out.println("Idade: " + pessoa.getIdade());
+//            System.out.println("Endereço: " + pessoa.getEndereco());            
+//        }          
 
 /*
 	// Para consultar os dados de uma pessoa através do seu CPF

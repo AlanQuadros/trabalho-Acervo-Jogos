@@ -10,10 +10,10 @@ public class ConnectionFactory {
     public Connection getConnection() {
         try {
 	Properties connectionProps = new Properties();
-	connectionProps.put("user", "bf280420"); // Coloque aqui o seu usu�rio
-	connectionProps.put("password", "bf280420"); // Coloque aqui a sua senha
+	connectionProps.put("user", "root"); // Coloque aqui o seu usu�rio
+	connectionProps.put("password", "123456"); // Coloque aqui a sua senha
 	Connection conexao = DriverManager.getConnection(
-          "jdbc:oracle:thin:@//camburi.pucrs.br:1521/facin11g", connectionProps);
+          "jdbc:mysql://localhost:3306/mysql", connectionProps);
 
         return conexao;        
         
