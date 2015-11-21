@@ -131,8 +131,8 @@ public class CadGenerosGUI extends javax.swing.JInternalFrame {
         try {
             genDAO.insertGenero(gen);
             JOptionPane.showMessageDialog(null, "Genêro cadastrado com sucesso");
-        } catch (SQLException ex) {
-            Logger.getLogger(CadGenerosGUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
         }
     }//GEN-LAST:event_jbCadastrarActionPerformed
 

@@ -16,7 +16,8 @@ import java.util.List;
 
 /**
  *
- * @author Alan Quadros
+ * @author Alan Quadros <alanquaros@hotmail.com>
+ * @date   20/11/2015
  */
 public class GeneroDAO {
     
@@ -26,7 +27,7 @@ public class GeneroDAO {
         this.connection = new ConnectionFactory().getConnection();
     }
     
-    public void insertGenero(Genero genero) throws SQLException{
+    public void insertGenero(Genero genero){
         String sql = "insert into GENEROS "
                 +"(id_genero, nome_genero)"
                 +" values(?, ?)";
