@@ -5,17 +5,44 @@
  */
 package visao;
 
+import dao.GeneroDAO;
+import dao.JogoDAO;
+import dao.PlataformaDAO;
+import dao.ProdutoraDAO;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import modelo.Genero;
+import modelo.Jogo;
+import modelo.Plataforma;
+import modelo.Produtora;
+
 /**
  *
  * @author Alan Quadros <alanquaros@hotmail.com>
  */
 public class AltJogosGUI extends javax.swing.JInternalFrame {
 
+     DefaultTableModel dtm = new DefaultTableModel(
+             new Object[][]{},
+             new Object[]{"Código", "Nome", "Metacrítica", "ESRB", "Descrição", "Máx. Players", "Personagem", "Data de Lançamento", "Gênero", "Plataforma", "Produtora"}) {
+                  @Override
+                  public boolean isCellEditable(int row, int column) {
+                       return false;
+                  }
+             };
+
      /**
       * Creates new form AltJogosGUI
       */
      public AltJogosGUI() {
           initComponents();
+          preencherTabela();
+          preencheComboProdutoras();
+          preencherComboGenero();
+          preencherComboPlataforma();
      }
 
      /**
@@ -31,30 +58,30 @@ public class AltJogosGUI extends javax.swing.JInternalFrame {
           jScrollPane1 = new javax.swing.JScrollPane();
           jtableJogo = new javax.swing.JTable();
           jLabel1 = new javax.swing.JLabel();
-          jTextField1 = new javax.swing.JTextField();
+          jtCodJogo = new javax.swing.JTextField();
           jLabel2 = new javax.swing.JLabel();
-          jTextField2 = new javax.swing.JTextField();
+          jtNome = new javax.swing.JTextField();
           jLabel3 = new javax.swing.JLabel();
-          jTextField3 = new javax.swing.JTextField();
+          jtMetacritica = new javax.swing.JTextField();
           jLabel4 = new javax.swing.JLabel();
-          jTextField4 = new javax.swing.JTextField();
+          jtEsrb = new javax.swing.JTextField();
           jLabel5 = new javax.swing.JLabel();
           jScrollPane2 = new javax.swing.JScrollPane();
-          jTextArea1 = new javax.swing.JTextArea();
+          jtextDescricao = new javax.swing.JTextArea();
           jLabel6 = new javax.swing.JLabel();
-          jTextField5 = new javax.swing.JTextField();
+          jtMaxPlayers = new javax.swing.JTextField();
           jLabel7 = new javax.swing.JLabel();
-          jTextField6 = new javax.swing.JTextField();
+          jtPersonagem = new javax.swing.JTextField();
           jLabel8 = new javax.swing.JLabel();
-          jTextField7 = new javax.swing.JTextField();
+          jtDataLancamento = new javax.swing.JTextField();
           jLabel9 = new javax.swing.JLabel();
-          jComboBox1 = new javax.swing.JComboBox();
+          jcomboGenero = new javax.swing.JComboBox();
           jLabel10 = new javax.swing.JLabel();
-          jComboBox2 = new javax.swing.JComboBox();
+          jcomboPlataforma = new javax.swing.JComboBox();
           jLabel11 = new javax.swing.JLabel();
-          jComboBox3 = new javax.swing.JComboBox();
-          jButton1 = new javax.swing.JButton();
-          jButton2 = new javax.swing.JButton();
+          jcomboProdutora = new javax.swing.JComboBox();
+          jbAlterar = new javax.swing.JButton();
+          jbDeletar = new javax.swing.JButton();
 
           setClosable(true);
           setTitle("Alteração de Jogos");
@@ -73,7 +100,7 @@ public class AltJogosGUI extends javax.swing.JInternalFrame {
                }
           ) {
                boolean[] canEdit = new boolean [] {
-                    false, true, true, true, true, true, true, true, true, true, true
+                    false, true, true, true, false, true, true, true, true, true, true
                };
 
                public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -81,9 +108,15 @@ public class AltJogosGUI extends javax.swing.JInternalFrame {
                }
           });
           jtableJogo.getTableHeader().setReorderingAllowed(false);
+          jtableJogo.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseReleased(java.awt.event.MouseEvent evt) {
+                    jtableJogoMouseReleased(evt);
+               }
+          });
           jScrollPane1.setViewportView(jtableJogo);
           if (jtableJogo.getColumnModel().getColumnCount() > 0) {
                jtableJogo.getColumnModel().getColumn(0).setMaxWidth(70);
+               jtableJogo.getColumnModel().getColumn(4).setMaxWidth(0);
           }
 
           jLabel1.setText("Código");
@@ -96,9 +129,11 @@ public class AltJogosGUI extends javax.swing.JInternalFrame {
 
           jLabel5.setText("Descrição");
 
-          jTextArea1.setColumns(20);
-          jTextArea1.setRows(5);
-          jScrollPane2.setViewportView(jTextArea1);
+          jtextDescricao.setColumns(20);
+          jtextDescricao.setLineWrap(true);
+          jtextDescricao.setRows(5);
+          jtextDescricao.setWrapStyleWord(true);
+          jScrollPane2.setViewportView(jtextDescricao);
 
           jLabel6.setText("Máx. de Players");
 
@@ -108,19 +143,23 @@ public class AltJogosGUI extends javax.swing.JInternalFrame {
 
           jLabel9.setText("Gênero");
 
-          jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
           jLabel10.setText("Plataforma");
-
-          jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
           jLabel11.setText("Produtora");
 
-          jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+          jbAlterar.setText("Alterar");
+          jbAlterar.addActionListener(new java.awt.event.ActionListener() {
+               public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    jbAlterarActionPerformed(evt);
+               }
+          });
 
-          jButton1.setText("Alterar");
-
-          jButton2.setText("Deletar");
+          jbDeletar.setText("Deletar");
+          jbDeletar.addActionListener(new java.awt.event.ActionListener() {
+               public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    jbDeletarActionPerformed(evt);
+               }
+          });
 
           javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
           jPanel1.setLayout(jPanel1Layout);
@@ -135,64 +174,66 @@ public class AltJogosGUI extends javax.swing.JInternalFrame {
                                    .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                              .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                             .addComponent(jTextField1))
+                                             .addComponent(jtCodJogo))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                              .addComponent(jLabel2)
-                                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                             .addComponent(jtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(14, 14, 14)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                              .addComponent(jLabel3)
                                              .addGroup(jPanel1Layout.createSequentialGroup()
                                                   .addGap(12, 12, 12)
-                                                  .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                  .addComponent(jtMetacritica, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                              .addComponent(jLabel4)
-                                             .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                             .addComponent(jtEsrb, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                    .addComponent(jLabel5)
                                    .addComponent(jScrollPane2))
                               .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                    .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                              .addGroup(jPanel1Layout.createSequentialGroup()
-                                                  .addGap(13, 13, 13)
-                                                  .addComponent(jLabel6))
-                                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                                  .addGap(46, 46, 46)
-                                                  .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                  .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                       .addGroup(jPanel1Layout.createSequentialGroup()
+                                                            .addGap(13, 13, 13)
+                                                            .addComponent(jLabel6))
+                                                       .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                            .addComponent(jLabel9)))
+                                                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                                              .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                                   .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                  .addComponent(jLabel9)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                  .addComponent(jtMaxPlayers, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                  .addGap(41, 41, 41)))
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                                  .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                       .addComponent(jLabel7)
-                                                       .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                  .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                       .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                       .addComponent(jTextField7)))
-                                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                             .addComponent(jLabel7)
+                                             .addComponent(jtPersonagem, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                             .addComponent(jtDataLancamento)))
                                    .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(68, 68, 68)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                              .addGroup(jPanel1Layout.createSequentialGroup()
                                                   .addComponent(jLabel11)
                                                   .addGap(18, 18, 18)
-                                                  .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                  .addComponent(jcomboProdutora, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                              .addGroup(jPanel1Layout.createSequentialGroup()
                                                   .addComponent(jLabel10)
                                                   .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                  .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                              .addGap(0, 30, Short.MAX_VALUE)))
+                                                  .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                       .addComponent(jcomboGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                       .addComponent(jcomboPlataforma, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                              .addGap(0, 121, Short.MAX_VALUE)))
                     .addContainerGap())
                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(316, 316, 316)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(392, 392, 392)
+                    .addComponent(jbAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(41, 41, 41)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
           );
           jPanel1Layout.setVerticalGroup(
@@ -211,13 +252,13 @@ public class AltJogosGUI extends javax.swing.JInternalFrame {
                          .addComponent(jLabel8))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                         .addComponent(jtCodJogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(jtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(jtMetacritica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(jtEsrb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(jtMaxPlayers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(jtPersonagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(jtDataLancamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jLabel5)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -225,20 +266,20 @@ public class AltJogosGUI extends javax.swing.JInternalFrame {
                          .addGroup(jPanel1Layout.createSequentialGroup()
                               .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                    .addComponent(jLabel9)
-                                   .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                   .addComponent(jcomboGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                               .addGap(18, 18, 18)
                               .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                    .addComponent(jLabel10)
-                                   .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                   .addComponent(jcomboPlataforma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                               .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                   .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                   .addComponent(jcomboProdutora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                    .addComponent(jLabel11)))
                          .addComponent(jScrollPane2))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                         .addComponent(jButton1)
-                         .addComponent(jButton2))
+                         .addComponent(jbAlterar)
+                         .addComponent(jbDeletar))
                     .addContainerGap())
           );
 
@@ -262,13 +303,223 @@ public class AltJogosGUI extends javax.swing.JInternalFrame {
           pack();
      }// </editor-fold>//GEN-END:initComponents
 
+     private void preencherTabela() {
+          try {
+               List<Jogo> jogos = new ArrayList<>();
+               JogoDAO jDAO = new JogoDAO();
+               jogos = jDAO.getListaJogo();
+
+               for (int i = 0; i < jogos.size(); i++) {
+                    dtm.addRow(new String[]{
+                         String.valueOf(jogos.get(i).getIdJogo()),
+                         String.valueOf(jogos.get(i).getNomeJogo()),
+                         String.valueOf(jogos.get(i).getMetacritica()),
+                         String.valueOf(jogos.get(i).getEsrb()),
+                         String.valueOf(jogos.get(i).getDescricao()),
+                         String.valueOf(jogos.get(i).getMaxPlayers()),
+                         String.valueOf(jogos.get(i).getPersonagem()),
+                         String.valueOf(jogos.get(i).getDataLancamento()),
+                         String.valueOf(jogos.get(i).getGenero()),
+                         String.valueOf(jogos.get(i).getPlataforma()),
+                         String.valueOf(jogos.get(i).getProdutora())
+                    });
+               }
+               jtableJogo.setModel(dtm);
+               jtableJogo.getColumnModel().getColumn(0).setMaxWidth(70);
+               jtableJogo.getColumnModel().getColumn(1).setMinWidth(250);
+               jtableJogo.getColumnModel().getColumn(4).setMaxWidth(0);
+               jtableJogo.getColumnModel().getColumn(4).setMinWidth(0);
+               jtableJogo.getColumnModel().getColumn(4).setPreferredWidth(0);
+
+          } catch (Exception e) {
+               JOptionPane.showMessageDialog(this,
+                       "Erro\n" + e.getMessage(),
+                       "ERRO",
+                       JOptionPane.ERROR_MESSAGE);
+          }
+     }
+
+     private void pegarJogo() {
+          int linha = jtableJogo.getSelectedRow();
+
+          if (linha == -1) {
+               JOptionPane.showMessageDialog(this,
+                       "Selecione um cliente!",
+                       "ERRO",
+                       JOptionPane.ERROR_MESSAGE);
+          } else {
+               jtCodJogo.setText((String) jtableJogo.getValueAt(linha, 0));
+               jtNome.setText((String) jtableJogo.getValueAt(linha, 1));
+               jtMetacritica.setText((String) jtableJogo.getValueAt(linha, 2));
+               jtEsrb.setText((String) jtableJogo.getValueAt(linha, 3));
+               jtextDescricao.setText((String) jtableJogo.getValueAt(linha, 4));
+               jtMaxPlayers.setText((String) jtableJogo.getValueAt(linha, 5));
+               jtPersonagem.setText((String) jtableJogo.getValueAt(linha, 6));
+               jtDataLancamento.setText((String) jtableJogo.getValueAt(linha, 7));
+
+               for (int i = 0; i < jcomboGenero.getItemCount(); i++) {
+                    if (jcomboGenero.getItemAt(i).toString().equals(jtableJogo.getValueAt(linha, 8).toString())) {
+                         jcomboGenero.setSelectedIndex(i);
+                    }
+               }
+
+               for (int i = 0; i < jcomboPlataforma.getItemCount(); i++) {
+                    if (jcomboPlataforma.getItemAt(i).toString().equals(jtableJogo.getValueAt(linha, 9))) {
+                         jcomboPlataforma.setSelectedIndex(i);
+                    }
+               }
+
+               for (int i = 0; i < jcomboProdutora.getItemCount(); i++) {
+                    if (jcomboProdutora.getItemAt(i).toString().equals(jtableJogo.getValueAt(linha, 10))) {
+                         jcomboProdutora.setSelectedIndex(i);
+                    }
+               }
+
+          }
+     }
+
+     private void limpar() {
+          jtCodJogo.setText(null);
+          jtDataLancamento.setText(null);
+          jtEsrb.setText(null);
+          jtMaxPlayers.setText(null);
+          jtMetacritica.setText(null);
+          jtNome.setText(null);
+          jtPersonagem.setText(null);
+          jtextDescricao.setText(null);
+          jcomboGenero.setSelectedIndex(0);
+          jcomboPlataforma.setSelectedIndex(0);
+          jcomboProdutora.setSelectedIndex(0);
+          dtm.setNumRows(0);
+     }
+
+     private void preencheComboProdutoras() {
+          try {
+               List<Produtora> produtoras = new ArrayList<>();
+               ProdutoraDAO pDAO = new ProdutoraDAO();
+               produtoras = pDAO.getListaPlataforma();
+
+               jcomboProdutora.addItem("--Selecione--");
+               for (int i = 0; i < produtoras.size(); i++) {
+                    jcomboProdutora.addItem(produtoras.get(i));
+               }
+
+          } catch (Exception e) {
+               JOptionPane.showMessageDialog(this,
+                       "Erro\n" + e.getMessage(),
+                       "ERRO",
+                       JOptionPane.ERROR_MESSAGE);
+          }
+     }
+
+     private void preencherComboGenero() {
+          try {
+               List<Genero> generos = new ArrayList<>();
+               GeneroDAO gDAO = new GeneroDAO();
+               generos = gDAO.getListaGenero();
+
+               jcomboGenero.addItem("--Selecione--");
+               for (int i = 0; i < generos.size(); i++) {
+                    jcomboGenero.addItem(generos.get(i));
+               }
+
+          } catch (Exception e) {
+               JOptionPane.showMessageDialog(this,
+                       "Erro\n" + e.getMessage(),
+                       "ERRO",
+                       JOptionPane.ERROR_MESSAGE);
+          }
+     }
+
+     private void preencherComboPlataforma() {
+          try {
+               List<Plataforma> plataformas = new ArrayList<>();
+               PlataformaDAO pDAO = new PlataformaDAO();
+               plataformas = pDAO.getListaPlataforma();
+
+               jcomboPlataforma.addItem("--Selecione--");
+               for (int i = 0; i < plataformas.size(); i++) {
+                    jcomboPlataforma.addItem(plataformas.get(i));
+               }
+
+          } catch (Exception e) {
+               JOptionPane.showMessageDialog(this,
+                       "Erro\n" + e.getMessage(),
+                       "ERRO",
+                       JOptionPane.ERROR_MESSAGE);
+          }
+
+     }
+
+     private void jtableJogoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtableJogoMouseReleased
+          pegarJogo();
+     }//GEN-LAST:event_jtableJogoMouseReleased
+
+     private void jbAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAlterarActionPerformed
+          try {
+               JogoDAO jDAO = new JogoDAO();
+               Jogo j = jDAO.getJogo(Long.parseLong(jtCodJogo.getText()));
+
+               j.setIdJogo(Long.parseLong(jtCodJogo.getText()));
+               j.setNomeJogo(jtNome.getText());
+               j.setMetacritica(Integer.parseInt(jtMetacritica.getText()));
+               j.setEsrb(jtEsrb.getText());
+               j.setDescricao(jtextDescricao.getText());
+               j.setMaxPlayers(Integer.parseInt(jtMaxPlayers.getText()));
+               j.setPersonagem(jtPersonagem.getText());
+               j.setDataLancamento(Date.valueOf(jtDataLancamento.getText()));
+
+               int opG = jcomboGenero.getSelectedIndex();
+               int opPla = jcomboPlataforma.getSelectedIndex();
+               int opPro = jcomboProdutora.getSelectedIndex();
+
+               if (opG == 0) {
+                    throw new Exception("Escolha um gênero!");
+               } else {
+                    j.setGenero((Genero) jcomboGenero.getSelectedItem());
+               }
+
+               if (opPla == 0) {
+                    throw new Exception("Escolha uma plataforma!");
+               } else {
+                    j.setPlataforma((Plataforma) jcomboPlataforma.getSelectedItem());
+               }
+
+               if (opPro == 0) {
+                    throw new Exception("Escolha uma produtora!");
+               } else {
+                    j.setProdutora((Produtora) jcomboProdutora.getSelectedItem());
+               }
+
+               String sId = (String) jtableJogo.getValueAt(jtableJogo.getSelectedRow(), 0);
+               long id = Long.parseLong(sId);
+
+               jDAO.upateJogo(j, id);
+               JOptionPane.showMessageDialog(null, "Jogo atualizado com sucesso!");
+               limpar();
+          } catch (Exception e) {
+               JOptionPane.showMessageDialog(null, "Erro ao atualizar o jogo!\n" + e.getMessage());
+          }
+          preencherTabela();
+     }//GEN-LAST:event_jbAlterarActionPerformed
+
+     private void jbDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDeletarActionPerformed
+          try {
+               JogoDAO jDAO = new JogoDAO();
+               jDAO.deletarJogo(Long.parseLong(jtCodJogo.getText()));
+
+               JOptionPane.showMessageDialog(null, "Jogo deletado com sucesso!");
+
+               limpar();
+          } catch (Exception e) {
+               JOptionPane.showMessageDialog(null, "Erro ao deletar jogo\n" + e.getMessage());
+               e.printStackTrace();
+          }
+          preencherTabela();
+     }//GEN-LAST:event_jbDeletarActionPerformed
+
 
      // Variables declaration - do not modify//GEN-BEGIN:variables
-     private javax.swing.JButton jButton1;
-     private javax.swing.JButton jButton2;
-     private javax.swing.JComboBox jComboBox1;
-     private javax.swing.JComboBox jComboBox2;
-     private javax.swing.JComboBox jComboBox3;
      private javax.swing.JLabel jLabel1;
      private javax.swing.JLabel jLabel10;
      private javax.swing.JLabel jLabel11;
@@ -283,14 +534,19 @@ public class AltJogosGUI extends javax.swing.JInternalFrame {
      private javax.swing.JPanel jPanel1;
      private javax.swing.JScrollPane jScrollPane1;
      private javax.swing.JScrollPane jScrollPane2;
-     private javax.swing.JTextArea jTextArea1;
-     private javax.swing.JTextField jTextField1;
-     private javax.swing.JTextField jTextField2;
-     private javax.swing.JTextField jTextField3;
-     private javax.swing.JTextField jTextField4;
-     private javax.swing.JTextField jTextField5;
-     private javax.swing.JTextField jTextField6;
-     private javax.swing.JTextField jTextField7;
+     private javax.swing.JButton jbAlterar;
+     private javax.swing.JButton jbDeletar;
+     private javax.swing.JComboBox jcomboGenero;
+     private javax.swing.JComboBox jcomboPlataforma;
+     private javax.swing.JComboBox jcomboProdutora;
+     private javax.swing.JTextField jtCodJogo;
+     private javax.swing.JTextField jtDataLancamento;
+     private javax.swing.JTextField jtEsrb;
+     private javax.swing.JTextField jtMaxPlayers;
+     private javax.swing.JTextField jtMetacritica;
+     private javax.swing.JTextField jtNome;
+     private javax.swing.JTextField jtPersonagem;
      private javax.swing.JTable jtableJogo;
+     private javax.swing.JTextArea jtextDescricao;
      // End of variables declaration//GEN-END:variables
 }

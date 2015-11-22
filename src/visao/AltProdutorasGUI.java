@@ -210,11 +210,11 @@ public class AltProdutorasGUI extends javax.swing.JInternalFrame {
                long id = Long.parseLong(sId);
                
                pDAO.updateProdutora(pro, id);
-               JOptionPane.showMessageDialog(null, "Produtora atualizada com sucesso!");
+               JOptionPane.showMessageDialog(null, "Produtora atualizada com sucesso!");               
+               limpar();
           } catch (Exception e) {
                JOptionPane.showMessageDialog(null, "Erro ao atualizar a produtora!\n"+e.getMessage());
           }
-          limpar();
           preencherTabela();
      }//GEN-LAST:event_jbAlterarActionPerformed
 
