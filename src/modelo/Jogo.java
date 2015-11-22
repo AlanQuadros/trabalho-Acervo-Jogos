@@ -11,7 +11,7 @@ import java.sql.Date;
 public class Jogo {
     private long idJogo;
     private String nomeJogo;
-    private double metacritica;
+    private int metacritica;
     private String esrb;
     private String descricao;
     private int maxPlayers;
@@ -40,11 +40,11 @@ public class Jogo {
         this.nomeJogo = nomeJogo;
     }
 
-    public double getMetacritica() {
+    public int getMetacritica() {
         return metacritica;
     }
 
-    public void setMetacritica(double metacritica) {
+    public void setMetacritica(int metacritica) {
         this.metacritica = metacritica;
     }
 

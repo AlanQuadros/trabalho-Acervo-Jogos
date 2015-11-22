@@ -52,7 +52,7 @@ public class Produtora {
     }
     
     public String toString(){
-        return "Id: " + id + "Nome: " + nome + "País: " + pais + "Site: " + site;
+        return nome;
     }
     
 }

@@ -34,7 +34,6 @@ public class Genero {
 
     @Override
     public String toString() {
-        return "Código: "+idGenero
-                +"\nNome do genêro: "+nomeGenero;
+        return nomeGenero;
     }
 }

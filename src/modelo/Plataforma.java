@@ -63,10 +63,6 @@ public class Plataforma {
 
     @Override
     public String toString() {
-        return "Código Plataforma: "+idPlataforma
-                +"\nNome: "+nomePlataforma
-                +"\nTipo: "+tipoPlataforma
-                +"\nFabricante: "+fabricante
-                +"\nData de lançamento: "+dataLancamento;
+        return nomePlataforma;
     }
 }
