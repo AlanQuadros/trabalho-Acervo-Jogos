@@ -23,6 +23,8 @@ public class TelaInicial extends javax.swing.JFrame implements InternalFrameList
     boolean flagCadJogo = false;
     boolean flagAltJogo = false;
     boolean flagJogoPlataforma = false;
+    boolean flagBuscaGenero = false;
+    boolean flagJogoMetacritica = false;
     
     /**
      * Creates new form TelaInicial
@@ -56,6 +58,8 @@ public class TelaInicial extends javax.swing.JFrame implements InternalFrameList
           jMenuItem6 = new javax.swing.JMenuItem();
           jMenu1 = new javax.swing.JMenu();
           jMenuItem9 = new javax.swing.JMenuItem();
+          jMenuItem10 = new javax.swing.JMenuItem();
+          jMenuItem11 = new javax.swing.JMenuItem();
 
           jMenuItem1.setText("jMenuItem1");
 
@@ -142,6 +146,22 @@ public class TelaInicial extends javax.swing.JFrame implements InternalFrameList
                }
           });
           jMenu1.add(jMenuItem9);
+
+          jMenuItem10.setText("Jogo e Plataforma por Gênero");
+          jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+               public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    jMenuItem10ActionPerformed(evt);
+               }
+          });
+          jMenu1.add(jMenuItem10);
+
+          jMenuItem11.setText("Jogo e Metacrítica");
+          jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+               public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    jMenuItem11ActionPerformed(evt);
+               }
+          });
+          jMenu1.add(jMenuItem11);
 
           jMenuBar1.add(jMenu1);
 
@@ -251,6 +271,26 @@ public class TelaInicial extends javax.swing.JFrame implements InternalFrameList
          }
     }
     
+    private void abrirBuscaGenero(){
+         if(!flagBuscaGenero){
+              BuscaJogoPlataformaGeneroGUI alp = new BuscaJogoPlataformaGeneroGUI();
+              jAreaTrabalho.add(alp);
+              alp.setVisible(true);
+              flagBuscaGenero = true;
+              alp.addInternalFrameListener(this);
+         }
+    }
+    
+    private void abrirJogoMetacritica(){
+         if(!flagJogoMetacritica){
+              BuscaJogoEMetacritica alp = new BuscaJogoEMetacritica();
+              jAreaTrabalho.add(alp);
+              alp.setVisible(true);
+              flagJogoMetacritica = true;
+              alp.addInternalFrameListener(this);
+         }
+    }
+    
     private void jmiGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiGeneroActionPerformed
         abrirCadGenero();
     }//GEN-LAST:event_jmiGeneroActionPerformed
@@ -288,6 +328,14 @@ public class TelaInicial extends javax.swing.JFrame implements InternalFrameList
      private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
           abrirJogoPlataforma();
      }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+          abrirBuscaGenero();
+     }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+          abrirJogoMetacritica();
+     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -330,6 +378,8 @@ public class TelaInicial extends javax.swing.JFrame implements InternalFrameList
      private javax.swing.JMenu jMenu2;
      private javax.swing.JMenuBar jMenuBar1;
      private javax.swing.JMenuItem jMenuItem1;
+     private javax.swing.JMenuItem jMenuItem10;
+     private javax.swing.JMenuItem jMenuItem11;
      private javax.swing.JMenuItem jMenuItem2;
      private javax.swing.JMenuItem jMenuItem3;
      private javax.swing.JMenuItem jMenuItem4;
@@ -372,6 +422,10 @@ public class TelaInicial extends javax.swing.JFrame implements InternalFrameList
              flagAltJogo = false;
         } else if(e.getInternalFrame() instanceof BuscaJogoPlataformaGUI){
              flagJogoPlataforma = false;
+        } else if(e.getInternalFrame() instanceof BuscaJogoPlataformaGeneroGUI){
+             flagBuscaGenero = false;
+        } else if(e.getInternalFrame() instanceof BuscaJogoEMetacritica){
+             flagJogoMetacritica = false;
         }
     }
 

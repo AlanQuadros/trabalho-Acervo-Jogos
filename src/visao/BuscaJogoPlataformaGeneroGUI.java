@@ -5,24 +5,24 @@
  */
 package visao;
 
+import dao.GeneroDAO;
 import dao.JogoDAO;
-import dao.PlataformaDAO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelo.Genero;
 import modelo.Jogo;
-import modelo.Plataforma;
 
 /**
  *
  * @author Alan Quadros <alanquaros@hotmail.com>
  */
-public class BuscaJogoPlataformaGUI extends javax.swing.JInternalFrame {
+public class BuscaJogoPlataformaGeneroGUI extends javax.swing.JInternalFrame {
 
      DefaultTableModel dtm = new DefaultTableModel(
              new Object[][]{},
-             new Object[]{"Código", "Nome"}) {
+             new Object[]{"Nome", "Plataforma"}) {
                   @Override
                   public boolean isCellEditable(int row, int column) {
                        return false;
@@ -30,11 +30,11 @@ public class BuscaJogoPlataformaGUI extends javax.swing.JInternalFrame {
              };
      
      /**
-      * Creates new form BuscaJogoPlataformaGUI
+      * Creates new form BuscaJogoPlataformaGenero
       */
-     public BuscaJogoPlataformaGUI() {
+     public BuscaJogoPlataformaGeneroGUI() {
           initComponents();
-          preencherComboPlataforma();
+          preencherComboGenero();
      }
 
      /**
@@ -48,39 +48,23 @@ public class BuscaJogoPlataformaGUI extends javax.swing.JInternalFrame {
 
           jPanel1 = new javax.swing.JPanel();
           jLabel1 = new javax.swing.JLabel();
+          jcomboGenero = new javax.swing.JComboBox();
+          jbBuscar = new javax.swing.JButton();
           jScrollPane1 = new javax.swing.JScrollPane();
           jtableJogo = new javax.swing.JTable();
-          jbBuscar = new javax.swing.JButton();
-          jcomboPlataformas = new javax.swing.JComboBox();
 
           setClosable(true);
-          setTitle("Busca de Jogo por Plataformas");
+          setTitle("Busca Jogo e Plataforma por Gênero");
 
           jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-          jLabel1.setText("Selecione a plataforma:");
+          jLabel1.setText("Gênero");
 
-          jtableJogo.setModel(new javax.swing.table.DefaultTableModel(
-               new Object [][] {
-
-               },
-               new String [] {
-                    "Código", "Nome"
-               }
-          ) {
-               boolean[] canEdit = new boolean [] {
-                    false, true
-               };
-
-               public boolean isCellEditable(int rowIndex, int columnIndex) {
-                    return canEdit [columnIndex];
+          jcomboGenero.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseReleased(java.awt.event.MouseEvent evt) {
+                    jcomboGeneroMouseReleased(evt);
                }
           });
-          jtableJogo.getTableHeader().setReorderingAllowed(false);
-          jScrollPane1.setViewportView(jtableJogo);
-          if (jtableJogo.getColumnModel().getColumnCount() > 0) {
-               jtableJogo.getColumnModel().getColumn(0).setMaxWidth(70);
-          }
 
           jbBuscar.setText("Buscar");
           jbBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -89,11 +73,19 @@ public class BuscaJogoPlataformaGUI extends javax.swing.JInternalFrame {
                }
           });
 
-          jcomboPlataformas.addMouseListener(new java.awt.event.MouseAdapter() {
-               public void mouseReleased(java.awt.event.MouseEvent evt) {
-                    jcomboPlataformasMouseReleased(evt);
+          jtableJogo.setModel(new javax.swing.table.DefaultTableModel(
+               new Object [][] {
+
+               },
+               new String [] {
+                    "Nome", "Plataforma"
                }
-          });
+          ));
+          jtableJogo.getTableHeader().setReorderingAllowed(false);
+          jScrollPane1.setViewportView(jtableJogo);
+          if (jtableJogo.getColumnModel().getColumnCount() > 0) {
+               jtableJogo.getColumnModel().getColumn(0).setMinWidth(200);
+          }
 
           javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
           jPanel1.setLayout(jPanel1Layout);
@@ -102,15 +94,14 @@ public class BuscaJogoPlataformaGUI extends javax.swing.JInternalFrame {
                .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
+                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addGroup(jPanel1Layout.createSequentialGroup()
                               .addComponent(jLabel1)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                              .addComponent(jcomboPlataformas, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                              .addComponent(jbBuscar)
-                              .addGap(0, 0, Short.MAX_VALUE)))
-                    .addContainerGap())
+                              .addComponent(jcomboGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addGap(18, 18, 18)
+                              .addComponent(jbBuscar)))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
           );
           jPanel1Layout.setVerticalGroup(
                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,11 +109,11 @@ public class BuscaJogoPlataformaGUI extends javax.swing.JInternalFrame {
                     .addContainerGap()
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                          .addComponent(jLabel1)
-                         .addComponent(jbBuscar)
-                         .addComponent(jcomboPlataformas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                         .addComponent(jcomboGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(jbBuscar))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
-                    .addContainerGap())
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
           );
 
           javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -150,43 +141,44 @@ public class BuscaJogoPlataformaGUI extends javax.swing.JInternalFrame {
                List<Jogo> jogos = new ArrayList<>();
                JogoDAO jDAO = new JogoDAO();
                
-               String query = (String) jcomboPlataformas.getSelectedItem();
-               jogos = jDAO.jogoPorPlataforma(query);
+               String query = (String) jcomboGenero.getSelectedItem();
+               jogos = jDAO.jogoEPlataformaPorGenero(query);
                
-               if(jcomboPlataformas.getSelectedIndex() == 0){
-                    JOptionPane.showMessageDialog(null, "SELECIONE ALGUMA PLATAFORMA!");
+               if(jcomboGenero.getSelectedIndex() == 0){
+                    JOptionPane.showMessageDialog(null, "SELECIONE ALGUM GÊNERO!");
                }
                
                for (int i = 0; i < jogos.size(); i++) {
                     dtm.addRow(new String[]{
-                         String.valueOf(jogos.get(i).getIdJogo()),
-                         String.valueOf(jogos.get(i).getNomeJogo())
+                         String.valueOf(jogos.get(i).getNomeJogo()),
+                         String.valueOf(jogos.get(i).getPlataforma().getNomePlataforma())
                     });
                }
                jtableJogo.setModel(dtm);
-               jtableJogo.getColumnModel().getColumn(0).setMaxWidth(70);
+               jtableJogo.getColumnModel().getColumn(0).setMinWidth(200);
                
           } catch (Exception e) {
                JOptionPane.showMessageDialog(this,
                        "Erro\n" + e.getMessage(),
                        "ERRO",
                        JOptionPane.ERROR_MESSAGE);
+               e.printStackTrace();
           }
      }//GEN-LAST:event_jbBuscarActionPerformed
 
-     private void jcomboPlataformasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcomboPlataformasMouseReleased
+     private void jcomboGeneroMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcomboGeneroMouseReleased
           limpar();
-     }//GEN-LAST:event_jcomboPlataformasMouseReleased
-     
-     private void preencherComboPlataforma() {
-          try {
-               List<Plataforma> plataformas = new ArrayList<>();
-               PlataformaDAO pDAO = new PlataformaDAO();
-               plataformas = pDAO.getListaPlataforma();
+     }//GEN-LAST:event_jcomboGeneroMouseReleased
 
-               jcomboPlataformas.addItem("--Selecione--");
-               for (int i = 0; i < plataformas.size(); i++) {
-                    jcomboPlataformas.addItem(plataformas.get(i).getNomePlataforma());
+     private void preencherComboGenero() {
+          try {
+               List<Genero> generos = new ArrayList<>();
+               GeneroDAO gDAO = new GeneroDAO();
+               generos = gDAO.getListaGenero();
+
+               jcomboGenero.addItem("--Selecione--");
+               for (int i = 0; i < generos.size(); i++) {
+                    jcomboGenero.addItem(generos.get(i).toString());
                }
 
           } catch (Exception e) {
@@ -195,20 +187,19 @@ public class BuscaJogoPlataformaGUI extends javax.swing.JInternalFrame {
                        "ERRO",
                        JOptionPane.ERROR_MESSAGE);
           }
-
      }
      
      public void limpar(){
           dtm.setNumRows(0);
-          jcomboPlataformas.setSelectedIndex(0);
+          jcomboGenero.setSelectedIndex(0);
      }
-
+     
      // Variables declaration - do not modify//GEN-BEGIN:variables
      private javax.swing.JLabel jLabel1;
      private javax.swing.JPanel jPanel1;
      private javax.swing.JScrollPane jScrollPane1;
      private javax.swing.JButton jbBuscar;
-     private javax.swing.JComboBox jcomboPlataformas;
+     private javax.swing.JComboBox jcomboGenero;
      private javax.swing.JTable jtableJogo;
      // End of variables declaration//GEN-END:variables
 }
