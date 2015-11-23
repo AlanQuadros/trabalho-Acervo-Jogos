@@ -124,15 +124,16 @@ public class CadGenerosGUI extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCadastrarActionPerformed
-        Genero gen = new Genero();
-        gen.setNomeGenero(jtNomeGenero.getText());
-        gen.setIdGenero(Long.parseLong(jtCodGenero.getText()));
-        GeneroDAO genDAO = new GeneroDAO();
+
         try {
+            Genero gen = new Genero();
+            gen.setNomeGenero(jtNomeGenero.getText());
+            gen.setIdGenero(Long.parseLong(jtCodGenero.getText()));
+            GeneroDAO genDAO = new GeneroDAO();
             genDAO.insertGenero(gen);
             JOptionPane.showMessageDialog(null, "Genêro cadastrado com sucesso");
         } catch (Exception ex) {
-            throw new RuntimeException(ex);
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_jbCadastrarActionPerformed
 
