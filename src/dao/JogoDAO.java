@@ -196,4 +196,55 @@ public class JogoDAO {
                throw new RuntimeException(ex);
           }
      }
+     
+     public Jogo jogoPorPlataforma(String plataforma){
+          Jogo j = new Jogo();
+          
+          if(plataforma == null){
+               return j;
+          }
+          
+          try {
+               PreparedStatement stmt = connection.prepareStatement("SELECT * FROM JOGO J"
+                       + " INNER JOIN PLATAFORMA P ON J.ID_PLATAFORMA = P.ID_PLATAFORMA"
+                       + "WHERE P.NOME_PLATAFORMA="+plataforma);
+               ResultSet rs = stmt.executeQuery();
+               
+               while(rs.next()){
+                    Genero g = new Genero();
+                    g.setIdGenero(rs.getLong("id_genero"));
+                    g.setNomeGenero(rs.getString("nome_genero"));
+                    
+                    Plataforma pla = new Plataforma();
+                    pla.setIdPlataforma(rs.getLong("id_plataforma"));
+                    pla.setNomePlataforma(rs.getString("nome_plataforma"));
+                    pla.setTipoPlataforma(rs.getString("tipo"));
+                    pla.setFabricante(rs.getString("fabricante"));
+                    pla.setDataLancamento(rs.getDate("data_lanc_plataforma"));
+                    
+                    Produtora pro = new Produtora();
+                    pro.setId(rs.getLong("id_produtora"));
+                    pro.setNome(rs.getString("nome_produtora"));
+                    pro.setPais(rs.getString("pais_origem"));
+                    pro.setSite(rs.getString("site_produtora"));
+                    
+                    j.setIdJogo(rs.getLong("id_jogo"));
+                    j.setNomeJogo(rs.getString("nome_jogo"));
+                    j.setMetacritica(rs.getInt("metacritica"));
+                    j.setEsrb(rs.getString("esrb"));
+                    j.setDescricao(rs.getString("descricao"));
+                    j.setMaxPlayers(rs.getInt("max_players"));
+                    j.setPersonagem(rs.getString("personagem"));
+                    j.setDataLancamento(rs.getDate("data_lancamento"));
+                    j.setGenero(g);
+                    j.setPlataforma(pla);
+                    j.setProdutora(pro);
+               }
+               rs.close();
+               stmt.close();
+               return j;
+          } catch (SQLException ex) {
+               throw new RuntimeException(ex);
+          }
+     }
 }
